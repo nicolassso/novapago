@@ -14,7 +14,6 @@ const getCoins = async () => {
   try{
     const res = await axios.get('https://api.coincap.io/v2/assets/')
     setCoins(res.data.data)
-    console.log(res.data.data)
   } catch (error) {
     console.log(error)
   }

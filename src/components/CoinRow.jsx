@@ -6,7 +6,10 @@ const CoinRow = ({ coin, index }) => {
     const history = useHistory()
     const handleClick= () => {
         history.push('/chart', {
-                coinId: coin.id
+                coinId: coin.id,
+                name: coin.name,
+                symbol: coin.symbol,
+                price: coin.priceUsd
             }
         )
     }
@@ -27,10 +30,6 @@ const CoinRow = ({ coin, index }) => {
             }
         >
             {coin.changePercent24Hr}
-        </td>
-
-        <td>
-            ${coin.volumeUsd24Hr}
         </td>
         </tr>
   );
