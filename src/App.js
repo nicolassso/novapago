@@ -6,6 +6,8 @@ import Main from './pages/Main';
 
 function App() {
 
+  //USE OF REACT ROUTER TO HANDLE THE TABLE PAGE AND CHART PAGE
+
   return (
     <>
       <Router>

@@ -28,22 +28,49 @@ function Chart() {
     const name = location.state.name
     const symbol = location.state.symbol
     const price = location.state.price
+    const [timeFrame, setTimeFrame] = useState('d1')
+    const currentDate = new Date()
+    let currentFormatDate =''
+    let month = currentDate.getMonth()+1
+    currentFormatDate =+ currentDate.getFullYear()+'-'+month+'-'+currentDate.getDate()
+    const currentTime = dayjs(currentFormatDate).valueOf()
 
-    const getCoinHistory = async (id) => {
+
+    const getCoinHistory = async (id, timeFrame, currentTime) => {
         try {
-            const res = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=d1&start=1638140400000&end=1640732400000`)
-            setCoinHistory(res.data.data)
-            console.log(dayjs("2021-11-29").valueOf())
+            const res = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=${timeFrame}&start=1638316800000&end=${currentTime}`)
+            setCoinHistory(res.data.data.slice(-30))
+
         } catch (error){
             console.log(error)
         }
     }
 
+    
+    const handleChange = (e) => {
+        setTimeFrame(e.target.value)
+        return timeFrame
+    }
+
+
+    const optionsDropdown = [
+        {
+            id: 1,
+            label: 'Last 30 days',
+            value: 'd1'
+        },
+        {
+            id: 2,
+            label: 'Last 30 hours',
+            value: 'h1'
+        }
+    ];
+
     useEffect(() => {
         setCoinId(location.state.coinId)
         if(!coinId) return null;
-        getCoinHistory(coinId)
-    }, [coinId])
+        getCoinHistory(coinId, timeFrame, currentTime)
+    }, [coinId, timeFrame, currentTime])
 
     ChartJS.register(
         CategoryScale,
@@ -105,6 +132,20 @@ function Chart() {
         }} className="chart-container">
             <div className="coin-chart mt-4 p-4 h-75">
                 <h1 className="mb-5">{symbol}: ${price}</h1>
+
+                <div className="dropdown-inner">
+                <select 
+                name="dropdown" 
+                className="dropdown-box"
+                onChange={handleChange}
+                >
+                    {optionsDropdown.map(option => (
+                        <option key={option.id} value={option.value}>{option.label}</option>
+                    ))}
+
+                </select>
+            </div>
+
                 <Line data={data} options={options} />
             </div>
         </div>

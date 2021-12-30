@@ -15,22 +15,24 @@ const CoinRow = ({ coin, index }) => {
     }
   return (
 
-        <tr onClick={()=>handleClick()}>
-        <td className="text-muted">{index}</td>
-        <td>
-            <span>{coin.name}</span>
-            <span className="ms-3 text-muted">{coin.symbol}</span>
-        </td>
+        <tr onClick={()=>handleClick()} style={{
+            cursor: 'pointer'
+          }}>
+            <td className="text-muted">{index}</td>
+            <td>
+                <span>{coin.name}</span>
+                <span className="ms-3 text-muted">{coin.symbol}</span>
+            </td>
 
-        <td>${coin.priceUsd}</td>
+            <td>${coin.priceUsd}</td>
 
-        <td
-            className={
-            coin.changePercent24Hr > 0 ? "text-success" : "text-danger"
-            }
-        >
-            {coin.changePercent24Hr}
-        </td>
+            <td
+                className={
+                coin.changePercent24Hr > 0 ? "text-success" : "text-danger"
+                }
+            >
+                {coin.changePercent24Hr}
+            </td>
         </tr>
   );
 };
