@@ -13,7 +13,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path='/' component={Main} />
+          <Route exact path='/novapago' component={Main} />
           <Route exact path='/chart' component={Chart} />
         </Switch>
       </Router>

@@ -5,7 +5,7 @@ import './Header.scss'
 export const Header = () => {
     return (
         <div className="header">
-            <Link to='/'>
+            <Link to='/novapago'>
                 <h1 className='header-text'>/CoinCap</h1> 
             </Link>
         </div>
