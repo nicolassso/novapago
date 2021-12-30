@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/novapago/static/css/main.125ffb0e.css",
+    "main.js": "/novapago/static/js/main.b3d160cd.js",
+    "index.html": "/novapago/index.html",
+    "main.125ffb0e.css.map": "/novapago/static/css/main.125ffb0e.css.map",
+    "main.b3d160cd.js.map": "/novapago/static/js/main.b3d160cd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.125ffb0e.css",
+    "static/js/main.b3d160cd.js"
+  ]
+}
