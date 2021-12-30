@@ -4,9 +4,16 @@ The SPA shows the top 10 market cap cryptocurrencies and displays a chart with t
 
 The data is fetched from the coincap API.
 
-### I USED BOOTSTRAP FOR THE MAIN STYLING AND SOME SCSS 
+### LIBRARIES USED
 
-Scripts:
+Bootstrap for the main styling and some SCSS
+
+Chart.js for the charts
+
+Coin cap as the API
+
+
+### SCRIPTS
 
 yarn start -> runs the app in localhost
 

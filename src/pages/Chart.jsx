@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import dayjs from 'dayjs'
+import '../components/styles.scss'
+
+//CHART PAGE, BRINGS HISTORY DATA FROM API AND STORES PRICES AND DATES IN SEPARE ARRAYS, LATELY PASSED TO THE CHART COMPONENT TO RENDER THE DATA. USER CAN CHOOSE BETWEEN DAYS AND HOURS. 
+//I USED THE CURRENT DATE TO SELECT THE HISTORY DATA, AND SLICED THE DATA ARRAY TO GET THE LAS 30 ITEMS FROM IT
 
 
 import {
@@ -27,13 +31,14 @@ function Chart() {
     const [coinHistory, setCoinHistory] = useState([])
     const name = location.state.name
     const symbol = location.state.symbol
-    const price = location.state.price
+    const price = Math.round(location.state.price*100)/100
     const [timeFrame, setTimeFrame] = useState('d1')
     const currentDate = new Date()
     let currentFormatDate =''
     let month = currentDate.getMonth()+1
     currentFormatDate =+ currentDate.getFullYear()+'-'+month+'-'+currentDate.getDate()
     const currentTime = dayjs(currentFormatDate).valueOf()
+
 
 
     const getCoinHistory = async (id, timeFrame, currentTime) => {
@@ -51,8 +56,6 @@ function Chart() {
         setTimeFrame(e.target.value)
         return timeFrame
     }
-
-
     const optionsDropdown = [
         {
             id: 1,
@@ -71,6 +74,9 @@ function Chart() {
         if(!coinId) return null;
         getCoinHistory(coinId, timeFrame, currentTime)
     }, [coinId, timeFrame, currentTime])
+    
+
+    //SETUP FOR THE CHART
 
     ChartJS.register(
         CategoryScale,
@@ -131,20 +137,20 @@ function Chart() {
             height: '100vh'
         }} className="chart-container">
             <div className="coin-chart mt-4 p-4 h-75">
-                <h1 className="mb-5">{symbol}: ${price}</h1>
+                <h1 className="mt-5">{symbol}: ${price}</h1>
 
-                <div className="dropdown-inner">
-                <select 
-                name="dropdown" 
-                className="dropdown-box"
-                onChange={handleChange}
-                >
-                    {optionsDropdown.map(option => (
-                        <option key={option.id} value={option.value}>{option.label}</option>
-                    ))}
+                <div className="dropdown-inner mt-4 mb-3">
+                    <select 
+                    name="dropdown" 
+                    className="dropdown-box"
+                    onChange={handleChange}
+                    >
+                        {optionsDropdown.map(option => (
+                            <option key={option.id} value={option.value}>{option.label}</option>
+                        ))}
 
-                </select>
-            </div>
+                    </select>
+                </div>
 
                 <Line data={data} options={options} />
             </div>

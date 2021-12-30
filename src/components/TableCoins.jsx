@@ -1,7 +1,11 @@
 import React from "react";
 import CoinRow from "./CoinRow";
+import './styles.scss'
 
-const titles = ["#", "Coin", "Price", "24h Change %"];
+
+const titles = ["Coin", "Price", "24h Change"];
+
+//RECEIVE THE API DATA AND FILTER THE TOP 10 MARKETCAP COINS, IF THE SEARCH FROM THE SEARCH BAR MATCHES ANY OF THE TOP 10 COINS, THE TABLE ONLY DISPLAYS THESE COINS, IF NOT, IT DISPLAYS THE REST OF MATCHES 
 
 const TableCoins = ({ coins, search }) => {
 
@@ -21,12 +25,10 @@ const TableCoins = ({ coins, search }) => {
   .filter((coin, index) => index < 10)
 
 
-
-
   if (!coins) return <div>no coins</div>
 
   return (
-    <table className="table table-dark mt-4 table-hover">
+    <table className="table table-striped table-dark mt-4 table-hover">
       <thead>
         <tr>
           {titles.map((title, i) => (

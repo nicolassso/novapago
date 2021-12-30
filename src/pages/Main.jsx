@@ -3,6 +3,8 @@ import '../App';
 import axios from 'axios'
 import TableCoins from "../components/TableCoins";
 
+//PAGE WITH THE TOP 10 CRYPTOCURRENCIES, SNEDS THE DATA TO TABLECOINS COMPONENT, FROM THE API AND FROM THE SEARCHBAR
+
 
 function Main() {
 
@@ -26,11 +28,11 @@ useEffect(() => {
 
   return (
     <div className="container">
-    <div className="row">
+    <div className="row d-flex justify-content-center">
       <input
         type="text"
         placeholder="Search a Coin"
-        className="form-control bg-dark text-light border-0 mt-4 text-center"
+        className="form-control bg-dark text-light border-0 mt-4 text-center w-75"
         autoFocus
         onChange={(e) => setSearch(e.target.value)}
       />
