@@ -34,14 +34,8 @@ function Chart() {
     const price = Math.round(location.state.price*100)/100
     const [timeFrame, setTimeFrame] = useState('d1')
     const currentDate = new Date()
-    let currentFormatDate =''
-    let month = currentDate.getMonth()+1
-    let pastDay = currentDate.getDate()+1
-    let pastMonth = currentDate.getFullYear()+'-'+currentDate.getMonth()+'-'+pastDay
-    currentFormatDate =+ currentDate.getFullYear()+'-'+month+'-'+currentDate.getDate()
-    const currentTime = dayjs(currentFormatDate).valueOf()
-    const startDate =  dayjs(pastMonth).valueOf()
-
+    const currentTimeMilliseconds = dayjs(currentDate).valueOf()
+    const startDateMilliseconds =  currentTimeMilliseconds - 2505600000
 
 
     const getCoinHistory = async (id, timeFrame, currentTime, startDate) => {
@@ -75,8 +69,8 @@ function Chart() {
     useEffect(() => {
         setCoinId(location.state.coinId)
         if(!coinId) return null;
-        getCoinHistory(coinId, timeFrame, currentTime, startDate)
-    }, [coinId, timeFrame, currentTime, startDate])
+        getCoinHistory(coinId, timeFrame, currentTimeMilliseconds, startDateMilliseconds)
+    }, [coinId, timeFrame, currentTimeMilliseconds, startDateMilliseconds])
     
 
     //SETUP FOR THE CHART
@@ -104,11 +98,13 @@ function Chart() {
         let year = ''
         let month = ''
         let day = ''
+        let hour = ''
         f = new Date(f)
         year = f.getFullYear()
         month = f.getMonth() + 1
         day = f.getDate()
-        formatDate.push(day+'/'+month+'/'+year)
+        hour = f.getHours()
+        formatDate.push(day+'/'+month+'/'+year+' '+hour+':00')
         return formatDate
     })
 
