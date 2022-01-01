@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/novapago/static/css/main.125ffb0e.css",
-    "main.js": "/novapago/static/js/main.e25255f5.js",
+    "main.js": "/novapago/static/js/main.1f55ac69.js",
     "index.html": "/novapago/index.html",
     "main.125ffb0e.css.map": "/novapago/static/css/main.125ffb0e.css.map",
-    "main.e25255f5.js.map": "/novapago/static/js/main.e25255f5.js.map"
+    "main.1f55ac69.js.map": "/novapago/static/js/main.1f55ac69.js.map"
   },
   "entrypoints": [
     "static/css/main.125ffb0e.css",
-    "static/js/main.e25255f5.js"
+    "static/js/main.1f55ac69.js"
   ]
 }
