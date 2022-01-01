@@ -36,14 +36,17 @@ function Chart() {
     const currentDate = new Date()
     let currentFormatDate =''
     let month = currentDate.getMonth()+1
+    let pastDay = currentDate.getDate()+1
+    let pastMonth = currentDate.getFullYear()+'-'+currentDate.getMonth()+'-'+pastDay
     currentFormatDate =+ currentDate.getFullYear()+'-'+month+'-'+currentDate.getDate()
     const currentTime = dayjs(currentFormatDate).valueOf()
+    const startDate =  dayjs(pastMonth).valueOf()
 
 
 
-    const getCoinHistory = async (id, timeFrame, currentTime) => {
+    const getCoinHistory = async (id, timeFrame, currentTime, startDate) => {
         try {
-            const res = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=${timeFrame}&start=1638316800000&end=${currentTime}`)
+            const res = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=${timeFrame}&start=${startDate}&end=${currentTime}`)
             setCoinHistory(res.data.data.slice(-30))
 
         } catch (error){
@@ -72,8 +75,8 @@ function Chart() {
     useEffect(() => {
         setCoinId(location.state.coinId)
         if(!coinId) return null;
-        getCoinHistory(coinId, timeFrame, currentTime)
-    }, [coinId, timeFrame, currentTime])
+        getCoinHistory(coinId, timeFrame, currentTime, startDate)
+    }, [coinId, timeFrame, currentTime, startDate])
     
 
     //SETUP FOR THE CHART
