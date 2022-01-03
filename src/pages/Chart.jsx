@@ -34,16 +34,13 @@ function Chart() {
     const price = Math.round(location.state.price*100)/100
     const [timeFrame, setTimeFrame] = useState('d1')
     const currentDate = new Date()
-    let currentFormatDate =''
-    let month = currentDate.getMonth()+1
-    currentFormatDate =+ currentDate.getFullYear()+'-'+month+'-'+currentDate.getDate()
-    const currentTime = dayjs(currentFormatDate).valueOf()
+    const currentTimeMilliseconds = dayjs(currentDate).valueOf()
+    const startDateMilliseconds =  currentTimeMilliseconds - 2505600000
 
 
-
-    const getCoinHistory = async (id, timeFrame, currentTime) => {
+    const getCoinHistory = async (id, timeFrame, currentTime, startDate) => {
         try {
-            const res = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=${timeFrame}&start=1638316800000&end=${currentTime}`)
+            const res = await axios.get(`https://api.coincap.io/v2/assets/${id}/history?interval=${timeFrame}&start=${startDate}&end=${currentTime}`)
             setCoinHistory(res.data.data.slice(-30))
 
         } catch (error){
@@ -72,8 +69,8 @@ function Chart() {
     useEffect(() => {
         setCoinId(location.state.coinId)
         if(!coinId) return null;
-        getCoinHistory(coinId, timeFrame, currentTime)
-    }, [coinId, timeFrame, currentTime])
+        getCoinHistory(coinId, timeFrame, currentTimeMilliseconds, startDateMilliseconds)
+    }, [coinId, timeFrame, currentTimeMilliseconds, startDateMilliseconds])
     
 
     //SETUP FOR THE CHART
@@ -101,11 +98,13 @@ function Chart() {
         let year = ''
         let month = ''
         let day = ''
+        let hour = ''
         f = new Date(f)
         year = f.getFullYear()
         month = f.getMonth() + 1
         day = f.getDate()
-        formatDate.push(day+'/'+month+'/'+year)
+        hour = f.getHours()
+        formatDate.push(day+'/'+month+'/'+year+' '+hour+':00')
         return formatDate
     })
 
