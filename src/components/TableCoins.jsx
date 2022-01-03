@@ -21,6 +21,8 @@ const TableCoins = ({ coins, search }) => {
   const filteredCoins = coins
   .filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
+    ||
+    coin.symbol.toLowerCase().includes(search.toLowerCase())
   )
   .filter((coin, index) => index < 10)
 
